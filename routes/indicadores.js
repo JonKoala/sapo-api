@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var indicador = require('../models/indicador');
+var indicador = require('../models/indicador')();
 
 router.get('/all', (req, res) => {
 
@@ -9,7 +9,7 @@ router.get('/all', (req, res) => {
       res.send(indicadores);
     })
     .catch(err => {
-      console.log(err);
+      res.send(err);
     });
 });
 

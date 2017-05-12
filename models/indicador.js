@@ -1,31 +1,36 @@
 const sql = require('mssql/msnodesqlv8')
 
-const pool = new sql.ConnectionPool({
-  database: 'SAPO',
-  server: 'tcees43',
-  driver: 'msnodesqlv8',
-  options: {
-    trustedConnection: true
+class Indicador {
+
+  constructor() {
+    this.config = {
+      database: 'SAPO',
+      server: 'tcees43',
+      driver: 'msnodesqlv8',
+      options: {
+        trustedConnection: true
+      }
+    };
   }
-});
 
-var indicador = { };
-indicador.getAll = function() {
-  pool.close();
-
-  return new Promise((resolve, reject) => {
-    pool.connect()
-      .then(() => {
-        return pool.request()
-          .query('SELECT * FROM Indicador');
-      })
-      .then(result => {
+  execQuery(query) {
+    return new Promise((resolve, reject) => {
+      sql.connect(this.config).then(pool => {
+        return pool.request().query(query);
+      }).then(result => {
         resolve(result.recordset);
-      })
-      .catch(err => {
+      }).catch(err => {
         reject(err);
+      }).then(() => {
+        sql.close();
       });
-  });
+    });
+  }
+
+  getAll() {
+    return this.execQuery('SELECT * FROM Indicador');
+  }
+
 }
 
-module.exports = indicador;
+module.exports = () => { return new Indicador(); };
