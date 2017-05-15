@@ -1,14 +1,25 @@
 var express = require('express');
 var router = express.Router();
-var indicador = require('../models/indicador')();
+var indicador = require('../models/indicador');
 
-router.get('/all', (req, res) => {
+router.get('/', (req, res) => {
 
-  indicador.getAll()
-    .then((indicadores) => {
+  indicador.findAll()
+    .then(indicadores => {
       res.send(indicadores);
-    })
-    .catch(err => {
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.get('/:id', (req, res) => {
+
+  let id = req.params.id;
+
+  indicador.findById(id)
+    .then(indicador => {
+      res.send(indicador);
+    }).catch(err => {
       res.send(err);
     });
 });

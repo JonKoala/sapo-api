@@ -1,11 +1,17 @@
-const BaseModel = require('./baseModel')
+var sequelize = require('sequelize')
+var db = require('./dbConnection')
 
-class Indicador extends BaseModel {
+var indicador = db.define('indicador', {
+  id: {
+    type: sequelize.INTEGER,
+    primaryKey: true,
+    field: 'indicador_id'
+  },
+  nome: sequelize.STRING,
+  objetivos: sequelize.STRING
+}, {
+  timestamps: false,
+  tableName: 'Indicador'
+});
 
-  getAll() {
-    return this.execQuery('SELECT * FROM Indicador');
-  }
-
-}
-
-module.exports = () => { return new Indicador(); };
+module.exports = indicador;
