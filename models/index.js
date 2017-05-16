@@ -7,7 +7,7 @@ var item = require('./item')
 var pontuacao = require('./pontuacao')
 var criterioLegal = require('./criterioLegal')
 var itemCriterioLegal = require('./itemCriterioLegal')
-var norma = require('./norma');
+var norma = require('./norma')
 
 //indicador 1:n pilar
 pilar.belongsTo(indicador, {foreignKey: 'indicador_id'});
