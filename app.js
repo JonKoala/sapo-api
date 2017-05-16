@@ -11,6 +11,8 @@ app.use('/pontuacoes', require('./routes/pontuacoes'));
 app.use('/criteriosLegais', require('./routes/criteriosLegais'));
 app.use('/normas', require('./routes/normas'));
 
+app.use('/legacy', require('./routes/legacy'));
+
 var port = process.env.PORT || 8080;
 app.listen(port, function() {
   console.log('Listening on ' + port);
