@@ -12,16 +12,6 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/full', (req, res) => {
-
-  model.pilar.findAll({ include: [model.indicador] })
-    .then(pilares => {
-      res.send(pilares);
-    }).catch(err => {
-      res.send(err);
-    });
-});
-
 router.get('/:id', (req, res) => {
 
   let id = req.params.id;
@@ -34,11 +24,11 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.get('/full/:id', (req, res) => {
+router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.pilar.findById(id, { include: [model.indicador] })
+  model.pilar.findById(id, { include: [{model: model.indicador}, {model: model.tipo, as: 'tipos'}] })
     .then(pilar => {
       res.send(pilar);
     }).catch(err => {

@@ -1,12 +1,12 @@
 var model = require('../models')
 var express = require('express')
-var router = express.Router()
+var router = express.Router();
 
 router.get('/', (req, res) => {
 
-  model.indicador.findAll()
-    .then(indicadores => {
-      res.send(indicadores);
+  model.subnivel.findAll()
+    .then(subniveis => {
+      res.send(subniveis);
     }).catch(err => {
       res.send(err);
     });
@@ -16,9 +16,9 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.indicador.findById(id)
-    .then(indicador => {
-      res.send(indicador);
+  model.subnivel.findById(id)
+    .then(subnivel => {
+      res.send(subnivel);
     }).catch(err => {
       res.send(err);
     });
@@ -28,14 +28,12 @@ router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.indicador.findById(id, { include: [{model: model.pilar, as: 'pilares'}] })
-    .then(indicador => {
-      res.send(indicador);
+  model.subnivel.findById(id, { include: [{model: model.nivel}] })
+    .then(subnivel => {
+      res.send(subnivel);
     }).catch(err => {
       res.send(err);
     });
 });
-
-
 
 module.exports = router;
