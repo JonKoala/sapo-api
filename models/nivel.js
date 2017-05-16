@@ -8,7 +8,7 @@ var nivel = db.define('nivel', {
     field: 'nivel_id'
   },
   nome: sequelize.STRING,
-  descricao: sequelize.STRING
+  descricao: sequelize.TEXT
 }, {
   timestamps: false,
   tableName: 'Nivel'

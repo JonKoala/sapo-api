@@ -4,9 +4,9 @@ var router = express.Router();
 
 router.get('/', (req, res) => {
 
-  model.indicador.findAll()
-    .then(indicadores => {
-      res.send(indicadores);
+  model.pontuacao.findAll()
+    .then(pontuacoes => {
+      res.send(pontuacoes);
     }).catch(err => {
       res.send(err);
     });
@@ -16,9 +16,9 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.indicador.findById(id)
-    .then(indicador => {
-      res.send(indicador);
+  model.pontuacao.findById(id)
+    .then(pontuacao => {
+      res.send(pontuacao);
     }).catch(err => {
       res.send(err);
     });
@@ -28,9 +28,9 @@ router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.indicador.findById(id, { include: [{model: model.pilar, as: 'pilares'}] })
-    .then(indicador => {
-      res.send(indicador);
+  model.pontuacao.findById(id, { include: [{model: model.item}] })
+    .then(pontuacao => {
+      res.send(pontuacao);
     }).catch(err => {
       res.send(err);
     });

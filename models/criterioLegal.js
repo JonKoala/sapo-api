@@ -1,17 +1,16 @@
 var sequelize = require('sequelize')
 var db = require('./dbConnection')
 
-var pilar = db.define('pilar', {
+var criterioLegal = db.define('criterioLegal', {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
-    field: 'pilar_id'
+    field: 'criterio_legal_id'
   },
-  nome: sequelize.STRING,
   descricao: sequelize.TEXT
 }, {
   timestamps: false,
-  tableName: 'Pilar'
+  tableName: 'Criterio_Legal'
 });
 
-module.exports = pilar;
+module.exports = criterioLegal;

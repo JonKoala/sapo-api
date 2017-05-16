@@ -8,7 +8,7 @@ var subnivel = db.define('subnivel', {
     field: 'subnivel_id'
   },
   nome: sequelize.STRING,
-  descricao: sequelize.STRING
+  descricao: sequelize.TEXT
 }, {
   timestamps: false,
   tableName: 'Subnivel'

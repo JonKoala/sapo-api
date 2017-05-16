@@ -4,9 +4,9 @@ var router = express.Router();
 
 router.get('/', (req, res) => {
 
-  model.indicador.findAll()
-    .then(indicadores => {
-      res.send(indicadores);
+  model.criterioLegal.findAll()
+    .then(criteriosLegais => {
+      res.send(criteriosLegais);
     }).catch(err => {
       res.send(err);
     });
@@ -16,9 +16,9 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.indicador.findById(id)
-    .then(indicador => {
-      res.send(indicador);
+  model.criterioLegal.findById(id)
+    .then(criterioLegal => {
+      res.send(criterioLegal);
     }).catch(err => {
       res.send(err);
     });
@@ -28,9 +28,9 @@ router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.indicador.findById(id, { include: [{model: model.pilar, as: 'pilares'}] })
-    .then(indicador => {
-      res.send(indicador);
+  model.criterioLegal.findById(id, { include: [{model: model.item, as: 'itens'}, {model: model.norma}] })
+    .then(criterioLegal => {
+      res.send(criterioLegal);
     }).catch(err => {
       res.send(err);
     });

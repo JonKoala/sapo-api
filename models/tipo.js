@@ -8,7 +8,7 @@ var tipo = db.define('tipo', {
     field: 'tipo_id'
   },
   nome: sequelize.STRING,
-  descricao: sequelize.STRING
+  descricao: sequelize.TEXT
 }, {
   timestamps: false,
   tableName: 'Tipo'

@@ -8,7 +8,7 @@ var indicador = db.define('indicador', {
     field: 'indicador_id'
   },
   nome: sequelize.STRING,
-  objetivos: sequelize.STRING
+  objetivos: sequelize.TEXT
 }, {
   timestamps: false,
   tableName: 'Indicador'

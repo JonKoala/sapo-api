@@ -28,7 +28,7 @@ router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.subnivel.findById(id, { include: [{model: model.nivel}] })
+  model.subnivel.findById(id, { include: [{model: model.nivel}, {model: model.item, as: 'itens'}] })
     .then(subnivel => {
       res.send(subnivel);
     }).catch(err => {
