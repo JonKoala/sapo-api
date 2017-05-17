@@ -6,6 +6,22 @@ var router = express.Router();
 //TODO: Remover dependencia (group-array) quando deixar de usar o legacy.js
 var groupArray = require('group-array');
 
+router.get('/indicador', (req, res) => {
+
+  db.query(`
+    SELECT
+    	indicador_id AS id
+    	,nome
+    	,objetivos
+    FROM Indicador`,
+    { type: sequelize.QueryTypes.SELECT})
+    .then(result => {
+      res.send(result);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
 router.get('/entidades', (req, res) => {
 
   db.query(`

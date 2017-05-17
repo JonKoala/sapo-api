@@ -1,6 +1,11 @@
 var express = require('express');
 var app = express();
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 app.use('/indicadores', require('./routes/indicadores'));
 app.use('/pilares', require('./routes/pilares'));
 app.use('/tipos', require('./routes/tipos'));
@@ -13,7 +18,6 @@ app.use('/normas', require('./routes/normas'));
 
 app.use('/legacy', require('./routes/legacy'));
 
-var port = process.env.PORT || 8080;
-app.listen(port, function() {
-  console.log('Listening on ' + port);
+app.listen(8080, function() {
+  console.log('server up! listening on 8080...');
 });
