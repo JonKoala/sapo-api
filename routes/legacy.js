@@ -1,10 +1,15 @@
 var sequelize = require('sequelize')
 var db = require('../models/dbConnection')
+var model = require('../models')
 var express = require('express')
 var router = express.Router();
 
 //TODO: Remover dependencia (group-array) quando deixar de usar o legacy.js
 var groupArray = require('group-array');
+
+
+//
+//GET
 
 router.get('/indicador', (req, res) => {
 
@@ -234,22 +239,66 @@ router.get('/itens_indicador/:id', (req, res) => {
   let id = req.params.id;
 
   db.query(`
-    SELECT
-    	i.item_id AS id
-      ,i.nome
-      ,i.exigencia
-      ,i.nota_maxima AS notaMaxima
-      ,i.obrigatorio
-    FROM Item AS i
-    INNER JOIN Subnivel AS sub ON i.subnivel_id = sub.subnivel_id
-    INNER JOIN Nivel AS niv ON sub.nivel_id = niv.nivel_id
-    INNER JOIN Tipo AS tip ON niv.tipo_id = tip.tipo_id
-    INNER JOIN Pilar AS pil ON tip.pilar_id = pil.pilar_id
-    INNER JOIN Indicador AS ind ON pil.indicador_id = ind.indicador_id
-    WHERE ind.indicador_id = ` + id,
-    { type: sequelize.QueryTypes.SELECT})
-    .then(result => {
+      SELECT
+      	i.item_id AS id
+        ,i.nome
+        ,i.exigencia
+        ,i.nota_maxima AS notaMaxima
+        ,i.obrigatorio
+      FROM Item AS i
+      INNER JOIN Subnivel AS sub ON i.subnivel_id = sub.subnivel_id
+      INNER JOIN Nivel AS niv ON sub.nivel_id = niv.nivel_id
+      INNER JOIN Tipo AS tip ON niv.tipo_id = tip.tipo_id
+      INNER JOIN Pilar AS pil ON tip.pilar_id = pil.pilar_id
+      INNER JOIN Indicador AS ind ON pil.indicador_id = ind.indicador_id
+      WHERE ind.indicador_id = ` + id,
+      { type: sequelize.QueryTypes.SELECT}
+    ).then(result => {
       res.send(result);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+
+//
+//POST
+
+router.post('/avaliacao/:indicador/:nome/:objetivos/:inicio', (req, res) => {
+
+  model.avaliacao.create({
+      indicador_id: req.params.indicador,
+      nome: req.params.nome,
+      objetivos: req.params.objetivos,
+      inicio: req.params.inicio
+    }).then(avaliacao => {
+      res.send(avaliacao);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.post('/objetoavaliacao/:entidade/:avaliacao/:observacoes?', (req, res) => {
+
+  model.objetoAvaliacao.create({
+      entidade_id: req.params.entidade,
+      avaliacao_id: req.params.avaliacao,
+      observacoes: req.params.observacoes
+    }).then(objetoAvaliacao => {
+      res.send(objetoAvaliacao);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.post('/nota/:usuario/:item/:objetoAvaliacao', (req, res) => {
+
+  model.nota.create({
+      usuario_id: req.params.usuario,
+      item_id: req.params.item,
+      objeto_avaliacao_id: req.params.objetoAvaliacao
+    }).then(nota => {
+      res.send(nota);
     }).catch(err => {
       res.send(err);
     });
