@@ -304,4 +304,60 @@ router.post('/nota/:usuario/:item/:objetoAvaliacao', (req, res) => {
     });
 });
 
+
+//
+//PUT
+
+router.put('/nota/:nota/:usuario/:pontuacao/:avaliacao', (req, res) => {
+
+  model.nota.findById(req.params.nota)
+    .then(nota => {
+      nota.usuario_id = req.params.usuario;
+      nota.pontuacao_id = req.params.pontuacao;
+      nota.avaliacao = req.params.avaliacao;
+      return nota.save();
+    }).then(nota => {
+      res.send(nota);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+
+//
+//DELETE
+
+router.delete('/objetoavaliacao-delete/:id', (req, res) => {
+
+  let id = req.params.id;
+
+  model.nota.destroy({where: {objeto_avaliacao_id: id}})
+    .then(() => {
+      return model.objetoAvaliacao.destroy({where: {id:id}});
+    }).then(() => {
+      res.send(id);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.delete('/avaliacao-delete/:id', (req, res) => {
+
+  let id = req.params.id;
+
+  model.objetoAvaliacao.findAll({where: {avaliacao_id:id}})
+    .then(objetosAvaliacao => {
+      objetoAvaliacaoIds = objetosAvaliacao.map(objetosAvaliacao => { return objetosAvaliacao.id; });
+      return model.nota.destroy({where: {objeto_avaliacao_id: {$in: objetoAvaliacaoIds}}});
+    }).then(() => {
+      return model.objetoAvaliacao.destroy({where: {avaliacao_id: id}});
+    }).then(() => {
+      return model.avaliacao.destroy({where: {id:id}});
+    }).then(() => {
+      res.send(id);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
 module.exports = router;
