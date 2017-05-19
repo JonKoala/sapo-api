@@ -264,13 +264,13 @@ router.get('/itens_indicador/:id', (req, res) => {
 //
 //POST
 
-router.post('/avaliacao/:indicador/:nome/:objetivos/:inicio', (req, res) => {
+router.post('/avaliacao/:indicador/:nome/:inicio/:objetivos?', (req, res) => {
 
   model.avaliacao.create({
       indicador_id: req.params.indicador,
       nome: req.params.nome,
-      objetivos: req.params.objetivos,
-      inicio: req.params.inicio
+      inicio: req.params.inicio,
+      objetivos: req.params.objetivos
     }).then(avaliacao => {
       res.send(avaliacao);
     }).catch(err => {
