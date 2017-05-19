@@ -1,10 +1,9 @@
-var express = require('express');
+var express = require('express')
+var cors = require('cors')
+
 var app = express();
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  next();
-});
+app.use(cors());
 
 app.use('/indicadores', require('./routes/indicadores'));
 app.use('/pilares', require('./routes/pilares'));
