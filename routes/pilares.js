@@ -24,6 +24,18 @@ router.get('/:id', (req, res) => {
     });
 });
 
+router.get('/indicador/:id', (req, res) => {
+
+  let id = req.params.id;
+
+  model.pilar.findAll({where: {indicador_id: id}})
+    .then(pilares => {
+      res.send(pilares);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
 router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;

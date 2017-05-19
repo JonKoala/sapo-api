@@ -24,6 +24,18 @@ router.get('/:id', (req, res) => {
     });
 });
 
+router.get('/tipo/:id', (req, res) => {
+
+  let id = req.params.id;
+
+  model.nivel.findAll({where: {tipo_id: id}})
+    .then(niveis => {
+      res.send(niveis);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
 router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
