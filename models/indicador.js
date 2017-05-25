@@ -5,6 +5,7 @@ var indicador = db.define('indicador', {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
     field: 'indicador_id'
   },
   nome: sequelize.STRING,
