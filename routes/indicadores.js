@@ -36,12 +36,24 @@ router.get('/:id/full', (req, res) => {
     });
 });
 
-router.post('/new', (req, res) => {
+router.post('/', (req, res) => {
 
   let newIndicador = req.body;
 
   model.indicador.create(newIndicador)
     .then(indicador => {
+      res.send(indicador);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.put('/', (req, res) => {
+
+  let indicador = req.body;
+
+  model.indicador.update(indicador, {where: {id: indicador.id}})
+    .then(() => {
       res.send(indicador);
     }).catch(err => {
       res.send(err);
