@@ -60,4 +60,16 @@ router.put('/', (req, res) => {
     });
 });
 
+router.delete('/', (req, res) => {
+
+  let indicador = req.body;
+
+  model.indicador.destroy({where: {id: indicador.id}})
+    .then(() => {
+      res.send({deleted: true});
+    }).catch(err => {
+      res.send({deleted: false, error: err});
+    });
+});
+
 module.exports = router;
