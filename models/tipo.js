@@ -5,6 +5,7 @@ var tipo = db.define('tipo', {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
     field: 'tipo_id'
   },
   nome: sequelize.STRING,

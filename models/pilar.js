@@ -5,6 +5,7 @@ var pilar = db.define('pilar', {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
     field: 'pilar_id'
   },
   nome: sequelize.STRING,

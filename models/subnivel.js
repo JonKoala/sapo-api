@@ -5,6 +5,7 @@ var subnivel = db.define('subnivel', {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
     field: 'subnivel_id'
   },
   nome: sequelize.STRING,

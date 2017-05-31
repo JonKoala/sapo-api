@@ -5,6 +5,7 @@ var norma = db.define('norma', {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
     field: 'norma_id'
   },
   tipo: sequelize.STRING,

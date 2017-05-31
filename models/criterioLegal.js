@@ -5,6 +5,7 @@ var criterioLegal = db.define('criterioLegal', {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
     field: 'criterio_legal_id'
   },
   descricao: sequelize.TEXT

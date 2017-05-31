@@ -5,6 +5,7 @@ var nivel = db.define('nivel', {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
     field: 'nivel_id'
   },
   nome: sequelize.STRING,

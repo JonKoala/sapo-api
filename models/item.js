@@ -5,6 +5,7 @@ var item = db.define('item', {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
     field: 'item_id'
   },
   nome: sequelize.STRING,

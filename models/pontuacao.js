@@ -5,6 +5,7 @@ var pontuacao = db.define('pontuacao', {
   id: {
     type: sequelize.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
     field: 'pontuacao_id'
   },
   descricao: sequelize.TEXT,
