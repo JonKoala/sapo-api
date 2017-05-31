@@ -48,4 +48,40 @@ router.get('/:id/full', (req, res) => {
     });
 });
 
+router.post('/', (req, res) => {
+
+  let newNivel = req.body;
+
+  model.nivel.create(newNivel)
+    .then(nivel => {
+      res.send(nivel);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.put('/', (req, res) => {
+
+  let nivel = req.body;
+
+  model.nivel.update(nivel, {where: {id: nivel.id}})
+    .then(() => {
+      res.send(nivel);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.delete('/', (req, res) => {
+
+  let nivel = req.body;
+
+  model.nivel.destroy({where: {id: nivel.id}})
+    .then(() => {
+      res.send({deleted: true});
+    }).catch(err => {
+      res.send({deleted: false, error: err});
+    });
+});
+
 module.exports = router;

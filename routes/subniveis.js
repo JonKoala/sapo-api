@@ -48,4 +48,40 @@ router.get('/:id/full', (req, res) => {
     });
 });
 
+router.post('/', (req, res) => {
+
+  let newSubnivel = req.body;
+
+  model.subnivel.create(newSubnivel)
+    .then(subnivel => {
+      res.send(subnivel);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.put('/', (req, res) => {
+
+  let subnivel = req.body;
+
+  model.subnivel.update(subnivel, {where: {id: subnivel.id}})
+    .then(() => {
+      res.send(subnivel);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.delete('/', (req, res) => {
+
+  let subnivel = req.body;
+
+  model.subnivel.destroy({where: {id: subnivel.id}})
+    .then(() => {
+      res.send({deleted: true});
+    }).catch(err => {
+      res.send({deleted: false, error: err});
+    });
+});
+
 module.exports = router;

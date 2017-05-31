@@ -48,4 +48,40 @@ router.get('/:id/full', (req, res) => {
     });
 });
 
+router.post('/', (req, res) => {
+
+  let newTipo = req.body;
+
+  model.tipo.create(newTipo)
+    .then(tipo => {
+      res.send(tipo);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.put('/', (req, res) => {
+
+  let tipo = req.body;
+
+  model.tipo.update(tipo, {where: {id: tipo.id}})
+    .then(() => {
+      res.send(tipo);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+router.delete('/', (req, res) => {
+
+  let tipo = req.body;
+
+  model.tipo.destroy({where: {id: tipo.id}})
+    .then(() => {
+      res.send({deleted: true});
+    }).catch(err => {
+      res.send({deleted: false, error: err});
+    });
+});
+
 module.exports = router;
