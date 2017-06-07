@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
 
-  let id = req.params.id;
+  var id = req.params.id;
 
   model.criterioLegal.findById(id)
     .then(criterioLegal => {
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/full', (req, res) => {
 
-  let id = req.params.id;
+  var id = req.params.id;
 
   model.criterioLegal.findById(id, { include: [{model: model.item, as: 'itens'}, {model: model.norma}] })
     .then(criterioLegal => {
@@ -36,9 +36,32 @@ router.get('/:id/full', (req, res) => {
     });
 });
 
+router.get('/:id/item/:fk/full', (req, res) => {
+
+  var id = req.params.id;
+  var fk = req.params.fk;
+
+  model.criterioLegal.findOne({
+      where: {id: id}
+      ,include: [
+        {model: model.item, as: 'itens', where: {item_id: fk}}
+        ,{model: model.norma}
+      ]
+    }).then(criterioLegal => {
+      let response = JSON.parse(JSON.stringify(criterioLegal));
+
+      response.item = criterioLegal.itens[0];
+      delete response.itens;
+
+      res.send(response);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
 router.get('/item/:id', (req, res) => {
 
-  let id = req.params.id;
+  var id = req.params.id;
 
   model.criterioLegal.findAll({include: [{model: model.item, as: 'itens', where: {item_id: id}}, {model: model.norma}]})
     .then(criteriosLegais => {
@@ -50,7 +73,7 @@ router.get('/item/:id', (req, res) => {
 
 router.get('/item/not/:id', (req, res) => {
 
-  let id = req.params.id;
+  var id = req.params.id;
 
   model.itemCriterioLegal.findAll({where: {item_id: id}})
     .then(itensCriteriosLegais =>  {
