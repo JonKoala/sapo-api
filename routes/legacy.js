@@ -72,12 +72,14 @@ router.get('/objetoavaliacao/:id', (req, res) => {
 
   db.query(`
     SELECT
-    	objeto_avaliacao_id AS id
-    	,entidade_id AS Entidade_id
-    	,avaliacao_id AS Avaliacao_id
-    	,observacoes
-    FROM Objeto_Avaliacao
-    WHERE avaliacao_id = ` + id,
+      OA.objeto_avaliacao_id AS id
+      ,OA.entidade_id AS Entidade_id
+      ,OA.avaliacao_id AS Avaliacao_id
+      ,OA.observacoes
+    	,A.nome
+    FROM Objeto_Avaliacao OA
+    INNER JOIN Avaliacao A ON A.avaliacao_id = OA.avaliacao_id
+    WHERE OA.avaliacao_id = ` + id,
   { type: sequelize.QueryTypes.SELECT})
   .then(result => {
     res.send(result);
