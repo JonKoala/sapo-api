@@ -8,7 +8,17 @@ router.get('/', (req, res) => {
     .then(criteriosLegais => {
       res.send(criteriosLegais);
     }).catch(err => {
-      res.send(err);
+      res.status(500).send(err);
+    });
+});
+
+router.get('/full', (req, res) => {
+
+  model.criterioLegal.findAll({include: [{model: model.item, as: 'itens'}, {model: model.norma}]})
+    .then(criteriosLegais => {
+      res.send(criteriosLegais);
+    }).catch(err => {
+      res.status(500).send(err);
     });
 });
 
@@ -20,7 +30,7 @@ router.get('/:id', (req, res) => {
     .then(criterioLegal => {
       res.send(criterioLegal);
     }).catch(err => {
-      res.send(err);
+      res.status(500).send(err);
     });
 });
 
@@ -32,7 +42,7 @@ router.get('/:id/full', (req, res) => {
     .then(criterioLegal => {
       res.send(criterioLegal);
     }).catch(err => {
-      res.send(err);
+      res.status(500).send(err);
     });
 });
 
@@ -55,7 +65,7 @@ router.get('/:id/item/:fk/full', (req, res) => {
 
       res.send(response);
     }).catch(err => {
-      res.send(err);
+      res.status(500).send(err);
     });
 });
 
@@ -67,7 +77,7 @@ router.get('/item/:id', (req, res) => {
     .then(criteriosLegais => {
       res.send(criteriosLegais);
     }).catch(err => {
-      res.send(err);
+      res.status(500).send(err);
     });
 });
 
@@ -86,6 +96,42 @@ router.get('/item/not/:id', (req, res) => {
     })
     .catch(err => {
       res.status(500).send(err);
+    });
+});
+
+router.post('/', (req, res) => {
+
+  let newCriterioLegal = req.body;
+
+  model.criterioLegal.create(newCriterioLegal)
+    .then(criterioLegal => {
+      res.send(criterioLegal);
+    }).catch(err => {
+      res.status(500).send(err);
+    });
+});
+
+router.put('/', (req, res) => {
+
+  let criterioLegal = req.body;
+
+  model.criterioLegal.update(criterioLegal, {where: {id: criterioLegal.id}})
+    .then(() => {
+      res.send(criterioLegal);
+    }).catch(err => {
+      res.status(500).send(err);
+    });
+});
+
+router.delete('/', (req, res) => {
+
+  let criterioLegal = req.body;
+
+  model.criterioLegal.destroy({where: {id: criterioLegal.id}})
+    .then(() => {
+      res.send({deleted: true});
+    }).catch(err => {
+      res.send({deleted: false, error: err});
     });
 });
 
