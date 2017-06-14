@@ -32,5 +32,5 @@ module.exports = router;
 http://blog.slatepeak.com/building-a-basic-restful-api-for-a-chat-system/
 http://blog.slatepeak.com/creating-a-simple-node-express-api-authentication-system-with-passport-and-jwt/
 http://blog.slatepeak.com/refactoring-a-basic-authenticated-api-with-node-express-and-mongo/
-	(And finally, allow passport to use the strategies we defined)
+	-parei em: "And finally, allow passport to use the strategies we defined"
 */
