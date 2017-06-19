@@ -18,6 +18,7 @@ app.use('/pontuacoes', require('./routes/pontuacoes'));
 app.use('/itenscriterioslegais', require('./routes/itensCriteriosLegais'));
 app.use('/criterioslegais', require('./routes/criteriosLegais'));
 app.use('/normas', require('./routes/normas'));
+app.use('/avaliacoes', require('./routes/avaliacoes'));
 
 app.use('/legacy', require('./routes/legacy'));
 
