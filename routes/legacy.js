@@ -209,8 +209,6 @@ router.get('/itemrelacionado/:id', (req, res) => {
   });
 });
 
-var groupArray = require('group-array');
-
 router.get('/usuario', (req, res) => {
 
   db.query(`
