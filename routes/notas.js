@@ -49,4 +49,17 @@ router.get('/objetoavaliacao/:id/full', (req, res) => {
     });
 });
 
+router.put('/pontuacao', (req, res) => {
+
+  var id = req.body.nota_id;
+  var pontuacao = req.body.pontuacao_id;
+
+  model.nota.update({pontuacao_id: pontuacao}, {where: {id: id}})
+    .then(rows => {
+      res.send({affected: rows});
+    }).catch(err => {
+      res.status(500).send(err);
+    });
+});
+
 module.exports = router;
