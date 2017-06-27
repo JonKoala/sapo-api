@@ -25,5 +25,5 @@ app.use('/notas', require('./routes/notas'));
 app.use('/legacy', require('./routes/legacy'));
 
 app.listen(8080, function() {
-  console.log('server up! listening on 8080...');
+  console.log('Server up! listening on 8080...');
 });
