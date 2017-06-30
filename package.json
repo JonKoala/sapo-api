@@ -7,7 +7,7 @@
     "start": "node app.js"
   },
   "author": "JonKoala",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",
