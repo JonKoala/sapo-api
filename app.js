@@ -1,6 +1,7 @@
 var express = require('express')
 var cors = require('cors')
 var bodyParser = require('body-parser')
+var appconfig = require('./appconfig')
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use('/notas', require('./routes/notas'));
 
 app.use('/legacy', require('./routes/legacy'));
 
-app.listen(8080, function() {
-  console.log('Server up! listening on 8080...');
+var port = appconfig.server.port;
+app.listen(port, function() {
+  console.log('Server up! Listening on ' + port + '...');
 });

@@ -1,4 +1,5 @@
 var Sequelize = require('sequelize')
+var appconfig = require('../appconfig')
 
 var db = new Sequelize({
   dialect: 'mssql',
@@ -6,8 +7,8 @@ var db = new Sequelize({
   dialectOptions: {
     trustedConnection: true
   },
-  host: 'tcees43',
-  database: 'SAPO',
+  host: appconfig.db.host,
+  database: appconfig.db.database,
 
   logging: false
 });
