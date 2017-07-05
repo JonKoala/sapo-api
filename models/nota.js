@@ -13,7 +13,11 @@ var nota = db.define('nota', {
     field: 'avaliacao_dt'
   },
   evidencias: sequelize.TEXT,
-  observacoes: sequelize.TEXT
+  observacoes: sequelize.TEXT,
+  clicks: {
+    type: sequelize.INTEGER,
+    field: 'clicks_qt'
+  }
 }, {
   timestamps: false,
   tableName: 'Nota'
