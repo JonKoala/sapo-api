@@ -12,6 +12,7 @@ var avaliacao = require('./avaliacao')
 var objetoAvaliacao = require('./objetoAvaliacao')
 var entidade = require('./entidade')
 var nota = require('./nota')
+var navegador = require('./navegador')
 var usuario = require('./usuario')
 var perfil = require('./perfil')
 
@@ -67,9 +68,13 @@ objetoAvaliacao.hasMany(nota, {foreignKey: 'objeto_avaliacao_id', as: 'notas'});
 nota.belongsTo(item, {foreignKey: 'item_id'});
 item.hasMany(nota, {foreignKey: 'item_id', as: 'notas'});
 
-//pontuacao 1:n nota
+//pontuacao 0-1:n nota
 nota.belongsTo(pontuacao, {foreignKey: 'pontuacao_id'});
 pontuacao.hasMany(nota, {foreignKey: 'pontuacao_id', as: 'notas'});
+
+//navegador 0-1:n nota
+nota.belongsTo(navegador, {foreignKey: 'navegador_id'});
+navegador.hasMany(nota, {foreignKey: 'navegador_id', as: 'notas'});
 
 //usuario 1:n nota
 nota.belongsTo(usuario, {foreignKey: 'usuario_id'});
@@ -93,5 +98,6 @@ module.exports.avaliacao = avaliacao;
 module.exports.objetoAvaliacao = objetoAvaliacao;
 module.exports.entidade = entidade;
 module.exports.nota = nota;
+module.exports.navegador = navegador;
 module.exports.usuario = usuario;
 module.exports.perfil = perfil;

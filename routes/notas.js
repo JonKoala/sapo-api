@@ -31,6 +31,7 @@ router.get('/objetoavaliacao/:id/full', (req, res) => {
   model.nota.findAll({
       where: {objeto_avaliacao_id: id},
       include: [
+        {model: model.navegador},
         {model: model.item, include: [
           {model: model.pontuacao, as: 'pontuacoes'},
           {model: model.subnivel, include: [
