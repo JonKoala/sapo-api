@@ -69,7 +69,7 @@ router.put('/pontuacao', (req, res) => {
 
   model.nota.update({pontuacao_id: pontuacao}, {where: {id: id}})
     .then(rows => {
-      res.send({affected: rows});
+      res.send({affected: rows, nota: id, pontuacao: pontuacao});
     }).catch(err => {
       res.status(500).send(err);
     });
