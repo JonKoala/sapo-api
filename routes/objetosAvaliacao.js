@@ -49,7 +49,10 @@ router.get('/avaliacao/:id/full', (req, res) => {
       include: [
         {model: model.avaliacao},
         {model: model.entidade},
-        {model: model.nota, as: 'notas'}
+        {model: model.nota, as: 'notas', include: [
+          {model: model.item},
+          {model: model.pontuacao}
+        ]}
       ]
     }).then(objetoAvaliacao => {
       res.send(objetoAvaliacao);
