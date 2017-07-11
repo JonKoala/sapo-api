@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 router.get('/indicador', (req, res) => {
 
-  model.avaliacao.findAll({include: [{model: model.indicador}]})
+  model.avaliacao.findAll({include: [{model: model.indicador}], where: {id: {$notIn: [20,21,22,23,24,27]}}})
     .then(avaliacoes => {
       res.send(avaliacoes);
     }).catch(err => {
