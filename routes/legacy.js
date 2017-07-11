@@ -264,41 +264,39 @@ router.get('/itens_indicador/:id', (req, res) => {
 //
 //POST
 
-router.post('/avaliacao/:indicador/:nome/:inicio/:objetivos?', (req, res) => {
+router.post('/avaliacao', (req, res) => {
+
+  var data = req.body;
+  var avaliacao;
 
   model.avaliacao.create({
-      indicador_id: req.params.indicador,
-      nome: req.params.nome,
-      inicio: req.params.inicio,
-      objetivos: req.params.objetivos
-    }).then(avaliacao => {
+      indicador_id: data.avaliacao.indicador,
+      nome: data.avaliacao.nome,
+      inicio: data.avaliacao.inicio,
+      objetivos: data.avaliacao.objetivos
+    }).then(newAvaliacao => {
+
+      avaliacao = newAvaliacao;
+      let objsAvaliacao = data.objetosAvaliacao.map(objAvaliacao => {
+        return {avaliacao_id: avaliacao.id, entidade_id: objAvaliacao.entidade, observacoes: objAvaliacao.observacoes};
+      });
+
+      return model.objetoAvaliacao.bulkCreate(objsAvaliacao);
+    }).then(() => {
+      return model.objetoAvaliacao.findAll({attributes: ['id'], where: {avaliacao_id: avaliacao.id}});
+    }).then(objetosAvaliacao => {
+
+      var notas = [];
+      var ids = objetosAvaliacao.map(objAvaliacao => { return objAvaliacao.id; });
+      ids.forEach(id => {
+        let newNotas = data.notas.map(nota => { return {objeto_avaliacao_id: id, usuario_id: nota.usuario, item_id: nota.item}; });
+        Array.prototype.push.apply(notas, newNotas);
+      });
+
+      //esta dando problema com inserts de 1000 itens ou mais
+      return model.nota.bulkCreate(notas);
+    }).then(() => {
       res.send(avaliacao);
-    }).catch(err => {
-      res.send(err);
-    });
-});
-
-router.post('/objetoavaliacao/:entidade/:avaliacao/:observacoes?', (req, res) => {
-
-  model.objetoAvaliacao.create({
-      entidade_id: req.params.entidade,
-      avaliacao_id: req.params.avaliacao,
-      observacoes: req.params.observacoes
-    }).then(objetoAvaliacao => {
-      res.send(objetoAvaliacao);
-    }).catch(err => {
-      res.send(err);
-    });
-});
-
-router.post('/nota/:usuario/:item/:objetoAvaliacao', (req, res) => {
-
-  model.nota.create({
-      usuario_id: req.params.usuario,
-      item_id: req.params.item,
-      objeto_avaliacao_id: req.params.objetoAvaliacao
-    }).then(nota => {
-      res.send(nota);
     }).catch(err => {
       res.send(err);
     });
