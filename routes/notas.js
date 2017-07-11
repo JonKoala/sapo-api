@@ -44,6 +44,13 @@ router.get('/objetoavaliacao/:id/full', (req, res) => {
         ]}
       ]
     }).then(notas => {
+
+      if (id == 1096) {
+        notas = notas.filter(nota => {
+          return nota.item.subnivel.nivel.tipo.id != 16 && nota.item.subnivel.nivel.tipo.id != 18;
+        });
+      }
+      
       res.send(notas);
     }).catch(err => {
       res.status(500).send(err);
