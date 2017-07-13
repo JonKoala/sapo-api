@@ -50,20 +50,13 @@ router.get('/avaliacao/:id/full', (req, res) => {
         {model: model.avaliacao},
         {model: model.entidade},
         {model: model.nota, as: 'notas', include: [
-          {model: model.pontuacao},
-          {model: model.item, include: [
-            {model: model.subnivel, include: [
-              {model: model.nivel, include: [
-                {model: model.tipo, where: {id: {$notIn: [16, 18]}}}
-              ]}
-            ]}
-          ]}
+          {model: model.item},
+          {model: model.pontuacao}
         ]}
       ]
     }).then(objetoAvaliacao => {
       res.send(objetoAvaliacao);
     }).catch(err => {
-      console.log(err);
       res.status(500).send(err);
     });
 });
