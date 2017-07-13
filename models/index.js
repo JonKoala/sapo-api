@@ -15,6 +15,7 @@ var nota = require('./nota')
 var navegador = require('./navegador')
 var usuario = require('./usuario')
 var perfil = require('./perfil')
+var utils = require('./utils')
 
 //indicador 1:n pilar
 pilar.belongsTo(indicador, {foreignKey: 'indicador_id'});
@@ -101,3 +102,4 @@ module.exports.nota = nota;
 module.exports.navegador = navegador;
 module.exports.usuario = usuario;
 module.exports.perfil = perfil;
+module.exports.utils = utils;

@@ -269,12 +269,14 @@ router.post('/avaliacao', (req, res) => {
   var data = req.body;
   var avaliacao;
 
+  //create a new avaliacao
   model.avaliacao.create({
       indicador_id: data.avaliacao.indicador,
       nome: data.avaliacao.nome,
       inicio: data.avaliacao.inicio,
       objetivos: data.avaliacao.objetivos
     }).then(newAvaliacao => {
+      //create objetosAvaliacao from the newly created avaliacao
 
       avaliacao = newAvaliacao;
       let objsAvaliacao = data.objetosAvaliacao.map(objAvaliacao => {
@@ -283,8 +285,11 @@ router.post('/avaliacao', (req, res) => {
 
       return model.objetoAvaliacao.bulkCreate(objsAvaliacao);
     }).then(() => {
+      //find all objetosAvaliacao related to that avaliacao
+
       return model.objetoAvaliacao.findAll({attributes: ['id'], where: {avaliacao_id: avaliacao.id}});
     }).then(objetosAvaliacao => {
+      //create notas for each newly created objetoAvaliacao
 
       var notas = [];
       var ids = objetosAvaliacao.map(objAvaliacao => { return objAvaliacao.id; });
@@ -293,8 +298,7 @@ router.post('/avaliacao', (req, res) => {
         Array.prototype.push.apply(notas, newNotas);
       });
 
-      //esta dando problema com inserts de 1000 itens ou mais
-      return model.nota.bulkCreate(notas);
+      return model.utils.bulkOperation(model.nota, model.nota.bulkCreate, notas);
     }).then(() => {
       res.send(avaliacao);
     }).catch(err => {
