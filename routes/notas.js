@@ -38,7 +38,9 @@ router.get('/objetoavaliacao/:id/full', (req, res) => {
           {model: model.subnivel, include: [
             {model: model.nivel, include: [
               {model: model.tipo, include: [
-                {model: model.pilar}
+                {model: model.pilar, include: [
+                  {model: model.indicador}
+                ]}
               ]}
             ]}
           ]}
