@@ -2,12 +2,17 @@ var express = require('express')
 var cors = require('cors')
 var bodyParser = require('body-parser')
 var appconfig = require('./appconfig')
+var auth = require('./auth')
 
 var app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(auth.initialize());
+
+app.use('/auth', require('./routes/auth'));
 
 app.use('/indicadores', require('./routes/indicadores'));
 app.use('/pilares', require('./routes/pilares'));

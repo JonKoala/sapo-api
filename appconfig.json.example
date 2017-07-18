@@ -1,9 +1,12 @@
 {
   "server": {
-    "port": "NUMERO"
+    "port": "SERVER-PORT"
   },
   "db": {
     "host": "DB-HOST",
     "database": "DB-DATABASE"
+  },
+  "auth": {
+    "secret": "AUTH-SECRET"
   }
 }
