@@ -1,4 +1,5 @@
 var model = require('../models')
+var auth = require('../auth')
 var express = require('express')
 var router = express.Router();
 
@@ -53,9 +54,10 @@ router.get('/objetoavaliacao/:id/full', (req, res) => {
     });
 });
 
-router.put('/', (req, res) => {
+router.put('/', auth.authenticate(), (req, res) => {
 
-  let nota = req.body;
+  var nota = req.body;
+  nota.usuario_id = req.user.id;
 
   model.nota.update(nota, {where: {id: nota.id}})
     .then(() => {
@@ -65,12 +67,13 @@ router.put('/', (req, res) => {
     });
 });
 
-router.put('/pontuacao', (req, res) => {
+router.put('/pontuacao', auth.authenticate(), (req, res) => {
 
   var id = req.body.nota_id;
   var pontuacao = req.body.pontuacao_id;
+  var usuario = req.user.id;
 
-  model.nota.update({pontuacao_id: pontuacao}, {where: {id: id}})
+  model.nota.update({pontuacao_id: pontuacao, usuario_id: usuario}, {where: {id: id}})
     .then(rows => {
       res.send({affected: rows, nota: id, pontuacao: pontuacao});
     }).catch(err => {
