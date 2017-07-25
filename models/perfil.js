@@ -6,7 +6,7 @@ var perfil = db.define('perfil', {
     type: sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    field: 'usuario_id'
+    field: 'perfil_id'
   },
   nome: sequelize.STRING,
   permissao: sequelize.INTEGER
