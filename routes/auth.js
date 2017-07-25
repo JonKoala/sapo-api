@@ -8,7 +8,7 @@ router.post('/login', (req, res) => {
 
   model.usuario.findOne({
       where: {$and: [ {usuario: req.body.usuario}, {senha: req.body.senha} ]},
-      include: [ {model: model.navegador} ]
+      include: [ {model: model.navegador}, {model: model.perfil} ]
     }).then(usuario => {
       if (usuario) {
         let token = jwt.encode(usuario, appconfig.auth.secret);
