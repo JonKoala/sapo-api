@@ -6,8 +6,10 @@ var router = express.Router();
 
 router.post('/login', (req, res) => {
 
-  model.usuario.findOne({where: {$and: [ {usuario: req.body.usuario}, {senha: req.body.senha} ]}})
-    .then(usuario => {
+  model.usuario.findOne({
+      where: {$and: [ {usuario: req.body.usuario}, {senha: req.body.senha} ]},
+      include: [ {model: model.navegador} ]
+    }).then(usuario => {
       if (usuario) {
         let token = jwt.encode(usuario, appconfig.auth.secret);
         res.send({token: token, usuario: usuario});

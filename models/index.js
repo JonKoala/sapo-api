@@ -77,6 +77,10 @@ pontuacao.hasMany(nota, {foreignKey: 'pontuacao_id', as: 'notas'});
 nota.belongsTo(navegador, {foreignKey: 'navegador_id'});
 navegador.hasMany(nota, {foreignKey: 'navegador_id', as: 'notas'});
 
+//navegador 1:n Usuario
+usuario.belongsTo(navegador, {foreignKey: 'navegador_id'});
+navegador.hasMany(usuario, {foreignKey: 'navegador_id', as: 'usuarios'});
+
 //usuario 1:n nota
 nota.belongsTo(usuario, {foreignKey: 'usuario_id'});
 usuario.hasMany(nota, {foreignKey: 'usuario_id', as: 'notas'});
