@@ -71,11 +71,13 @@ router.put('/pontuacao', auth.authenticate(), (req, res) => {
 
   var id = req.body.nota_id;
   var pontuacao = req.body.pontuacao_id;
-  var usuario = req.user.id;
+  var usuario = req.user;
 
-  model.nota.update({pontuacao_id: pontuacao, usuario_id: usuario}, {where: {id: id}})
-    .then(rows => {
-      res.send({affected: rows, nota: id, pontuacao: pontuacao});
+  model.nota.update({pontuacao_id: pontuacao, navegador_id: usuario.navegador_id, usuario_id: usuario.id}, {where: {id: id}})
+    .then(() => {
+      return model.nota.findById(id);
+    }).then(nota => {
+      res.send(nota);
     }).catch(err => {
       res.status(500).send(err);
     });
