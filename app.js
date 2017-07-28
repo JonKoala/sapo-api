@@ -27,6 +27,7 @@ app.use('/normas', require('./routes/normas'));
 app.use('/avaliacoes', require('./routes/avaliacoes'));
 app.use('/objetosavaliacao', require('./routes/objetosAvaliacao'));
 app.use('/notas', require('./routes/notas'));
+app.use('/entidades', require('./routes/entidades'));
 app.use('/navegadores', require('./routes/navegadores'));
 app.use('/usuarios', require('./routes/usuarios'));
 
