@@ -53,6 +53,25 @@ router.get('/subnivel/:id', (req, res) => {
     });
 });
 
+router.get('/indicador/:id', (req, res) => {
+
+  let id = req.params.id;
+
+  model.item.findAll({include: [
+      {model: model.subnivel, include: [
+        {model: model.nivel, include: [
+          {model: model.tipo, include: [
+            {model: model.pilar, where: {indicador_id: id}}
+          ]}
+        ]}
+      ]}
+    ]}).then(itens => {
+      res.send(itens);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
 router.post('/', (req, res) => {
 
   let newItem = req.body;
