@@ -5,6 +5,7 @@
   "db": {
     "host": "DB-HOST",
     "database": "DB-DATABASE"
+    "driver": "DB-DRIVER"
   },
   "auth": {
     "secret": "AUTH-SECRET"

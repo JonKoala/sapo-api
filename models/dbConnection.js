@@ -5,6 +5,7 @@ var db = new Sequelize({
   dialect: 'mssql',
   dialectModulePath: 'sequelize-msnodesqlv8',
   dialectOptions: {
+  	driver: appconfig.db.driver,
     trustedConnection: true
   },
   host: appconfig.db.host,
