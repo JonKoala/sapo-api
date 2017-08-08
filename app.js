@@ -3,7 +3,6 @@ var cors = require('cors')
 var bodyParser = require('body-parser')
 var appconfig = require('./appconfig')
 var auth = require('./auth')
-
 var app = express();
 
 app.use(cors());
@@ -30,8 +29,6 @@ app.use('/notas', require('./routes/notas'));
 app.use('/entidades', require('./routes/entidades'));
 app.use('/navegadores', require('./routes/navegadores'));
 app.use('/usuarios', require('./routes/usuarios'));
-
-app.use('/legacy', require('./routes/legacy'));
 
 var port = appconfig.server.port;
 app.listen(port, function() {
