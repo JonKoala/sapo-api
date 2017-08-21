@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
       var notas = [];
       var ids = objetosAvaliacao.map(objAvaliacao => { return objAvaliacao.id; });
       ids.forEach(id => {
-        let newNotas = data.itens.map(item => { return {objeto_avaliacao_id: id, item_id: item, usuario_id: 0}; });
+        let newNotas = data.itens.map(item => { return {objeto_avaliacao_id: id, item_id: item}; });
         Array.prototype.push.apply(notas, newNotas);
       });
 
