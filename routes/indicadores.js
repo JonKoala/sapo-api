@@ -10,7 +10,27 @@ router.get('/', (req, res) => {
     }).catch(err => {
       res.send(err);
     });
-});
+})
+
+router.get('/full', (req, res) => {
+
+  model.indicador.findAll({ include: [
+        {model: model.pilar, as: 'pilares', include: [
+          {model: model.tipo, as: 'tipos', include: [
+            {model: model.nivel, as: 'niveis', include: [
+              {model: model.subnivel, as: 'subniveis', include: [
+                {model: model.item, as: 'itens'}
+              ]}
+            ]}
+          ]}
+        ]}
+      ]})
+    .then(indicadores => {
+      res.send(indicadores);
+    }).catch(err => {
+      res.status(500).send(err);
+    });
+})
 
 router.get('/:id', (req, res) => {
 
