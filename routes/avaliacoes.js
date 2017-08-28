@@ -31,7 +31,8 @@ router.post('/', (req, res) => {
   model.avaliacao.create({
       indicador_id: data.avaliacao.indicador_id,
       nome: data.avaliacao.nome,
-      objetivos: data.avaliacao.objetivos
+      objetivos: data.avaliacao.objetivos,
+      inicio: new Date()
     }).then(newAvaliacao => {
       //create objetosAvaliacao from the newly created avaliacao
 
