@@ -58,6 +58,7 @@ router.put('/', auth.authenticate(), (req, res) => {
 
   var nota = req.body;
   nota.usuario_id = req.user.id;
+  nota.avaliacao = new Date();
 
   model.nota.update(nota, {where: {id: nota.id}})
     .then(() => {
@@ -72,8 +73,9 @@ router.put('/pontuacao', auth.authenticate(), (req, res) => {
   var id = req.body.nota_id;
   var pontuacao = req.body.pontuacao_id;
   var usuario = req.user;
+  var today = new Date();
 
-  model.nota.update({pontuacao_id: pontuacao, navegador_id: usuario.navegador_id, usuario_id: usuario.id}, {where: {id: id}})
+  model.nota.update({pontuacao_id: pontuacao, navegador_id: usuario.navegador_id, usuario_id: usuario.id, avaliacao: today}, {where: {id: id}})
     .then(() => {
       return model.nota.findById(id);
     }).then(nota => {
