@@ -14,7 +14,7 @@ var item = db.define('item', {
     type: sequelize.FLOAT,
     field: 'nota_maxima'
   },
-  exigencia: sequelize.INTEGER
+  obrigatorio: sequelize.INTEGER
 }, {
   timestamps: false,
   tableName: 'Item'
