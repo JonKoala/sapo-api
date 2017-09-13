@@ -15,7 +15,12 @@ var nota = require('./nota')
 var navegador = require('./navegador')
 var usuario = require('./usuario')
 var perfil = require('./perfil')
+
+//views
+var resumoObjetoAvaliacao = require('./resumoObjetoAvaliacao')
+
 var utils = require('./utils')
+
 
 //indicador 1:n pilar
 pilar.belongsTo(indicador, {foreignKey: 'indicador_id'});
@@ -89,6 +94,11 @@ usuario.hasMany(nota, {foreignKey: 'usuario_id', as: 'notas'});
 usuario.belongsTo(perfil, {foreignKey: 'perfil_id'});
 perfil.hasMany(usuario, {foreignKey: 'perfil_id', as: 'usuarios'});
 
+
+//avaliacao 1:n resumoObjetoAvaliacao
+resumoObjetoAvaliacao.belongsTo(avaliacao, {foreignKey: 'avaliacao_id'});
+avaliacao.hasMany(resumoObjetoAvaliacao, {foreignKey: 'avaliacao_id', as: 'resumosObjetoAvaliacao'});
+
 module.exports.pilar = pilar;
 module.exports.indicador = indicador;
 module.exports.tipo = tipo;
@@ -106,4 +116,5 @@ module.exports.nota = nota;
 module.exports.navegador = navegador;
 module.exports.usuario = usuario;
 module.exports.perfil = perfil;
+module.exports.resumoObjetoAvaliacao = resumoObjetoAvaliacao;
 module.exports.utils = utils;
