@@ -24,17 +24,13 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.get('/:id/full', (req, res) => {
+router.get('/:id/resumo', (req, res) => {
 
   let id = req.params.id;
 
-  model.objetoAvaliacao.findById(id, { include: [
-        {model: model.avaliacao},
-        {model: model.entidade},
-        {model: model.nota, as: 'notas'}
-      ]
-    }).then(objetoAvaliacao => {
-      res.send(objetoAvaliacao);
+  model.resumoObjetoAvaliacao.findById(id)
+    .then(resumo => {
+      res.send(resumo);
     }).catch(err => {
       res.status(500).send(err);
     });
@@ -45,8 +41,8 @@ router.get('/avaliacao/:id/resumo', (req, res) => {
   let id = req.params.id;
 
   model.resumoObjetoAvaliacao.findAll({where: {avaliacao_id: id}})
-    .then(objetoAvaliacao => {
-      res.send(objetoAvaliacao);
+    .then(resumos => {
+      res.send(resumos);
     }).catch(err => {
       res.status(500).send(err);
     });

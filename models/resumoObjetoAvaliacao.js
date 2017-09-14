@@ -8,6 +8,7 @@ var resumoObjetoAvaliacao = db.define('resumoObjetoAvaliacao', {
     autoIncrement: true,
     field: 'objeto_avaliacao_id'
   },
+  avaliacao: sequelize.STRING,
   entidade: sequelize.STRING,
   observacoes: sequelize.STRING,
   nota: {

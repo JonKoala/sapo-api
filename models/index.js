@@ -94,11 +94,6 @@ usuario.hasMany(nota, {foreignKey: 'usuario_id', as: 'notas'});
 usuario.belongsTo(perfil, {foreignKey: 'perfil_id'});
 perfil.hasMany(usuario, {foreignKey: 'perfil_id', as: 'usuarios'});
 
-
-//avaliacao 1:n resumoObjetoAvaliacao
-resumoObjetoAvaliacao.belongsTo(avaliacao, {foreignKey: 'avaliacao_id'});
-avaliacao.hasMany(resumoObjetoAvaliacao, {foreignKey: 'avaliacao_id', as: 'resumosObjetoAvaliacao'});
-
 module.exports.pilar = pilar;
 module.exports.indicador = indicador;
 module.exports.tipo = tipo;
