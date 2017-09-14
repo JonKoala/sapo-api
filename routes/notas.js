@@ -57,11 +57,15 @@ router.get('/objetoavaliacao/:id/full', (req, res) => {
 router.put('/', auth.authenticate(), (req, res) => {
 
   var nota = req.body;
-  nota.usuario_id = req.user.id;
-  nota.avaliacao = new Date();
+  var usuario = req.user;
+  var today = new Date();
 
-  model.nota.update(nota, {where: {id: nota.id}})
-    .then(() => {
+  model.nota.update(
+      {usuario_id: usuario.id, navegador_id: nota.navegador_id, avaliacao: today, clicks: nota.clicks, observacoes: nota.observacoes}
+      ,{where: {id: nota.id}}
+    ).then(() => {
+      return model.nota.findById(nota.id);
+    }).then(nota => {
       res.send(nota);
     }).catch(err => {
       res.status(500).send(err);
