@@ -16,8 +16,10 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.tipo.findById(id)
-    .then(tipo => {
+  model.tipo
+    .findOne({
+      where: { id }
+    }).then(tipo => {
       res.send(tipo);
     }).catch(err => {
       res.send(err);
@@ -40,8 +42,11 @@ router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.tipo.findById(id, { include: [{model: model.pilar}, {model: model.nivel, as: 'niveis'}] })
-    .then(tipo => {
+  model.tipo
+    .findOne({
+      where: { id },
+      include: [{model: model.pilar}, {model: model.nivel, as: 'niveis'}]
+    }).then(tipo => {
       res.send(tipo);
     }).catch(err => {
       res.send(err);

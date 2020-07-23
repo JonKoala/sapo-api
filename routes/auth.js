@@ -1,13 +1,14 @@
 var appconfig = require('../appconfig')
 var model = require('../models')
-var jwt = require("jwt-simple")
+var { Op } = require("sequelize")
+var jwt = require('jwt-simple')
 var express = require('express')
 var router = express.Router();
 
 router.post('/login', (req, res) => {
 
   model.usuario.findOne({
-      where: {$and: [ {usuario: req.body.usuario}, {senha: req.body.senha} ]},
+      where: {[Op.and]: [ {usuario: req.body.usuario}, {senha: req.body.senha} ]},
       include: [ {model: model.navegador}, {model: model.perfil} ]
     }).then(usuario => {
       if (usuario) {

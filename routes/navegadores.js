@@ -16,8 +16,10 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.navegador.findById(id)
-    .then(navegadores => {
+  model.navegador
+    .findOne({
+      where: { id }
+    }).then(navegadores => {
       res.send(navegadores);
     }).catch(err => {
       res.status(500).send(err);

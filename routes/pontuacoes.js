@@ -16,8 +16,10 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.pontuacao.findById(id)
-    .then(pontuacao => {
+  model.pontuacao
+    .findOne({
+      where: { id }
+    }).then(pontuacao => {
       res.send(pontuacao);
     }).catch(err => {
       res.send(err);
@@ -28,8 +30,11 @@ router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.pontuacao.findById(id, { include: [{model: model.item}] })
-    .then(pontuacao => {
+  model.pontuacao
+    .findOne({
+      where: { id },
+      include: [{model: model.item}]
+    }).then(pontuacao => {
       res.send(pontuacao);
     }).catch(err => {
       res.send(err);

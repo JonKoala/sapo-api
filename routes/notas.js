@@ -17,8 +17,10 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.nota.findById(id)
-    .then(nota => {
+  model.nota
+    .findOne({
+      where: { id }
+    }).then(nota => {
       res.send(nota);
     }).catch(err => {
       res.status(500).send(err);

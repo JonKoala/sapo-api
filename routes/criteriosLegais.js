@@ -1,5 +1,6 @@
 var model = require('../models')
 var express = require('express')
+var { Op } = require("sequelize")
 var router = express.Router();
 
 router.get('/', (req, res) => {
@@ -26,8 +27,10 @@ router.get('/:id', (req, res) => {
 
   var id = req.params.id;
 
-  model.criterioLegal.findById(id)
-    .then(criterioLegal => {
+  model.criterioLegal
+    .findOne({
+      where: { id }
+    }).then(criterioLegal => {
       res.send(criterioLegal);
     }).catch(err => {
       res.status(500).send(err);
@@ -38,8 +41,11 @@ router.get('/:id/full', (req, res) => {
 
   var id = req.params.id;
 
-  model.criterioLegal.findById(id, { include: [{model: model.item, as: 'itens'}, {model: model.norma}] })
-    .then(criterioLegal => {
+  model.criterioLegal
+    .findOne({
+      where: { id },
+      include: [{model: model.item, as: 'itens'}, {model: model.norma}]
+    }).then(criterioLegal => {
       res.send(criterioLegal);
     }).catch(err => {
       res.status(500).send(err);
@@ -87,8 +93,8 @@ router.get('/item/not/:id', (req, res) => {
 
   model.itemCriterioLegal.findAll({where: {item_id: id}})
     .then(itensCriteriosLegais =>  {
-      let tabuList = itensCriteriosLegais.map(i => {return i.criterio_legal_id;});
-      let whereObject = (tabuList.length > 0) ? {criterio_legal_id: {$notIn: tabuList}} : {}; /* TODO: reportar */
+      let tabuList = itensCriteriosLegais.map(i => i.criterio_legal_id);
+      let whereObject = (tabuList.length > 0) ? {criterio_legal_id: {[Op.notIn]: tabuList}} : {}; /* TODO: reportar */
 
       return model.criterioLegal.findAll({where: whereObject, include: [{model: model.norma}]});
     }).then(criteriosLegais =>  {

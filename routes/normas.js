@@ -16,8 +16,10 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.norma.findById(id)
-    .then(norma => {
+  model.norma
+    .findOne({
+      where: { id }
+    }).then(norma => {
       res.send(norma);
     }).catch(err => {
       res.send(err);
@@ -28,8 +30,11 @@ router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.norma.findById(id, { include: [{model: model.criterioLegal, as: 'criteriosLegais'}] })
-    .then(norma => {
+  model.norma
+    .findOne({
+      where: { id },
+      include: [{model: model.criterioLegal, as: 'criteriosLegais'}]
+    }).then(norma => {
       res.send(norma);
     }).catch(err => {
       res.send(err);

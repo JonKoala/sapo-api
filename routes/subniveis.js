@@ -16,8 +16,10 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.subnivel.findById(id)
-    .then(subnivel => {
+  model.subnivel
+    .findOne({
+      where: { id }
+    }).then(subnivel => {
       res.send(subnivel);
     }).catch(err => {
       res.send(err);
@@ -40,8 +42,11 @@ router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.subnivel.findById(id, { include: [{model: model.nivel}, {model: model.item, as: 'itens'}] })
-    .then(subnivel => {
+  model.subnivel
+    .findOne({
+      where: { id },
+      include: [{model: model.nivel}, {model: model.item, as: 'itens'}]
+    }).then(subnivel => {
       res.send(subnivel);
     }).catch(err => {
       res.send(err);

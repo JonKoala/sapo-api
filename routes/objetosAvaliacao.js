@@ -16,8 +16,10 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.objetoAvaliacao.findById(id)
-    .then(objetoAvaliacao => {
+  model.objetoAvaliacao
+    .findOne({
+      where: { id }
+    }).then(objetoAvaliacao => {
       res.send(objetoAvaliacao);
     }).catch(err => {
       res.status(500).send(err);
@@ -28,8 +30,10 @@ router.get('/:id/resumo', (req, res) => {
 
   let id = req.params.id;
 
-  model.resumoObjetoAvaliacao.findById(id)
-    .then(resumo => {
+  model.resumoObjetoAvaliacao
+    .findOne({
+      where: { id }
+    }).then(resumo => {
       res.send(resumo);
     }).catch(err => {
       res.status(500).send(err);

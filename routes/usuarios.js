@@ -16,8 +16,10 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.usuario.findById(id)
-    .then(usuario => {
+  model.usuario
+    .findOne({
+      where: { id }
+    }).then(usuario => {
       res.send(usuario);
     }).catch(err => {
       res.status(500).send(err);
@@ -28,7 +30,11 @@ router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.usuario.findById(id, { include: [ {model: model.navegador}, {model: model.perfil} ] })
+  model.usuario
+    .findOne({
+      where: { id },
+      include: [ {model: model.navegador}, {model: model.perfil} ]
+    })
     .then(usuario => {
       res.send(usuario);
     }).catch(err => {

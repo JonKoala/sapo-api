@@ -36,8 +36,10 @@ router.get('/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.indicador.findById(id)
-    .then(indicador => {
+  model.indicador
+    .findOne({
+      where: { id }
+    }).then(indicador => {
       res.send(indicador);
     }).catch(err => {
       res.send(err);
@@ -48,7 +50,11 @@ router.get('/:id/full', (req, res) => {
 
   let id = req.params.id;
 
-  model.indicador.findById(id, { include: [{model: model.pilar, as: 'pilares'}] })
+  model.indicador
+    .findOne({
+      where: { id },
+      include: [{model: model.pilar, as: 'pilares'}]
+    })
     .then(indicador => {
       res.send(indicador);
     }).catch(err => {
