@@ -1,4 +1,3 @@
-var appconfig = require('../appconfig')
 var model = require('../models')
 var { Op } = require("sequelize")
 var jwt = require('jwt-simple')
@@ -12,7 +11,7 @@ router.post('/login', (req, res) => {
       include: [ {model: model.navegador}, {model: model.perfil} ]
     }).then(usuario => {
       if (usuario) {
-        let token = jwt.encode(usuario, appconfig.auth.secret);
+        let token = jwt.encode(usuario, process.env['SAPO_JWT_SECRET']);
         res.send({token: token, usuario: usuario});
       } else {
         res.status(401).send("User not found");

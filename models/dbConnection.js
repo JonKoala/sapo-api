@@ -1,11 +1,10 @@
 var Sequelize = require('sequelize')
-var appconfig = require('../appconfig')
 
 var db = new Sequelize({
-  host: appconfig.db.host,
-  database: appconfig.db.database,
-  username: appconfig.db.username,
-  password: appconfig.db.password,
+  host: process.env['SAPO_DATABASE_HOST'],
+  database: process.env['SAPO_DATABASE_NAME'],
+  username: process.env['SAPO_DATABASE_USERNAME'],
+  password: process.env['SAPO_DATABASE_PASSWORD'],
 
   dialect: 'mssql',
   logging: false

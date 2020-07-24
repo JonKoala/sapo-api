@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "dev": "nodemon",
     "start": "node app.js"
   },
   "author": "JonKoala",
@@ -17,5 +18,8 @@
     "passport-jwt": "^2.2.1",
     "sequelize": "^6.3.3",
     "tedious": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

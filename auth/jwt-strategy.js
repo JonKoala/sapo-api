@@ -1,10 +1,9 @@
-var appconfig = require('../appconfig')
 var model = require('../models')
 var JwtStrategy = require('passport-jwt').Strategy
 var ExtractJwt = require('passport-jwt').ExtractJwt
 
 var strategyOptions = {
-  secretOrKey: appconfig.auth.secret,
+  secretOrKey: process.env['SAPO_JWT_SECRET'],
   jwtFromRequest: ExtractJwt.fromAuthHeader()
 }
 

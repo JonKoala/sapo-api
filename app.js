@@ -1,7 +1,6 @@
 var express = require('express')
 var cors = require('cors')
 var bodyParser = require('body-parser')
-var appconfig = require('./appconfig')
 var auth = require('./auth')
 var app = express();
 
@@ -30,7 +29,7 @@ app.use('/entidades', require('./routes/entidades'));
 app.use('/navegadores', require('./routes/navegadores'));
 app.use('/usuarios', require('./routes/usuarios'));
 
-var port = appconfig.server.port;
+var port = process.env['SAPO_API_PORT'];
 app.listen(port, function() {
   console.log('Server up! Listening on ' + port + '...');
 });
