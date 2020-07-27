@@ -64,10 +64,10 @@ router.get('/indicador/:id', (req, res) => {
   let id = req.params.id;
 
   model.item.findAll({include: [
-      {model: model.subnivel, include: [
-        {model: model.nivel, include: [
-          {model: model.tipo, include: [
-            {model: model.pilar, where: {indicador_id: id}}
+      {model: model.subnivel, required: true, include: [
+        {model: model.nivel, required: true, include: [
+          {model: model.tipo, required: true, include: [
+            {model: model.pilar, required: true, where: {indicador_id: id}}
           ]}
         ]}
       ]}
