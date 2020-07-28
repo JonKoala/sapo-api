@@ -18,9 +18,11 @@ router.delete('/', (req, res) => {
 
   let itemCriterioLegal = req.body;
 
-  model.itemCriterioLegal.destroy({where: {
-        item_id: itemCriterioLegal.item_id
-        ,criterio_legal_id: itemCriterioLegal.criterio_legal_id
+  model.itemCriterioLegal
+    .destroy({
+      where: {
+        item_id: itemCriterioLegal.item_id,
+        criterio_legal_id: itemCriterioLegal.criterio_legal_id
       }
     }).then(affectedRows  => {
       res.send({deleted: true});

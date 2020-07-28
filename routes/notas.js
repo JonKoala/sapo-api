@@ -31,7 +31,8 @@ router.get('/objetoavaliacao/:id/full', (req, res) => {
 
   var id = req.params.id;
 
-  model.nota.findAll({
+  model.nota
+    .findAll({
       where: {objeto_avaliacao_id: id},
       include: [
         {model: model.navegador},
@@ -59,14 +60,15 @@ router.get('/objetoavaliacao/:id/full', (req, res) => {
 router.put('/', auth.authenticate(), (req, res) => {
 
   var nota = req.body;
+  var id = nota.id;
   var usuario = req.user;
   var today = new Date();
 
   model.nota.update(
-      {usuario_id: usuario.id, navegador_id: nota.navegador_id, avaliacao: today, clicks: nota.clicks, observacoes: nota.observacoes}
-      ,{where: {id: nota.id}}
+      {usuario_id: usuario.id, navegador_id: nota.navegador_id, avaliacao: today, clicks: nota.clicks, observacoes: nota.observacoes},
+      {where: {id: nota.id}}
     ).then(() => {
-      return model.nota.findById(nota.id);
+      return model.nota.findOne({where: { id }});
     }).then(nota => {
       res.send(nota);
     }).catch(err => {
@@ -83,7 +85,7 @@ router.put('/pontuacao', auth.authenticate(), (req, res) => {
 
   model.nota.update({pontuacao_id: pontuacao, navegador_id: usuario.navegador_id, usuario_id: usuario.id, avaliacao: today}, {where: {id: id}})
     .then(() => {
-      return model.nota.findById(id);
+      return model.nota.findOne({where: { id }});
     }).then(nota => {
       res.send(nota);
     }).catch(err => {

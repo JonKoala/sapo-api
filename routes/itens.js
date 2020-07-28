@@ -63,15 +63,18 @@ router.get('/indicador/:id', (req, res) => {
 
   let id = req.params.id;
 
-  model.item.findAll({include: [
-      {model: model.subnivel, required: true, include: [
-        {model: model.nivel, required: true, include: [
-          {model: model.tipo, required: true, include: [
-            {model: model.pilar, required: true, where: {indicador_id: id}}
+  model.item
+    .findAll({
+      include: [
+        {model: model.subnivel, attributes: [], required: true, include: [
+          {model: model.nivel, attributes: [], required: true, include: [
+            {model: model.tipo, attributes: [], required: true, include: [
+              {model: model.pilar, attributes: [], required: true, where: {indicador_id: id}}
+            ]}
           ]}
         ]}
-      ]}
-    ]}).then(itens => {
+      ]
+    }).then(itens => {
       res.send(itens);
     }).catch(err => {
       res.send(err);

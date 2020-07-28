@@ -14,7 +14,9 @@ router.get('/', (req, res) => {
 
 router.get('/full', (req, res) => {
 
-  model.indicador.findAll({ include: [
+  model.indicador
+    .findAll({
+      include: [
         {model: model.pilar, as: 'pilares', include: [
           {model: model.tipo, as: 'tipos', include: [
             {model: model.nivel, as: 'niveis', include: [
@@ -24,8 +26,8 @@ router.get('/full', (req, res) => {
             ]}
           ]}
         ]}
-      ]})
-    .then(indicadores => {
+      ]
+    }).then(indicadores => {
       res.send(indicadores);
     }).catch(err => {
       res.status(500).send(err);

@@ -8,7 +8,7 @@ router.post('/login', (req, res) => {
 
   model.usuario.findOne({
       where: {[Op.and]: [ {usuario: req.body.usuario}, {senha: req.body.senha} ]},
-      include: [ {model: model.navegador}, {model: model.perfil} ]
+      include: [{model: model.navegador}, {model: model.perfil}]
     }).then(usuario => {
       if (usuario) {
         let token = jwt.encode(usuario, process.env['SAPO_JWT_SECRET']);

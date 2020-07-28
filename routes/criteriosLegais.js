@@ -57,11 +57,12 @@ router.get('/:id/item/:fk/full', (req, res) => {
   var id = req.params.id;
   var fk = req.params.fk;
 
-  model.criterioLegal.findOne({
-      where: {id: id}
-      ,include: [
-        {model: model.item, as: 'itens', where: {item_id: fk}}
-        ,{model: model.norma}
+  model.criterioLegal
+    .findOne({
+      where: { id },
+      include: [
+        {model: model.item, as: 'itens', where: {item_id: fk}},
+        {model: model.norma}
       ]
     }).then(criterioLegal => {
       let response = JSON.parse(JSON.stringify(criterioLegal));

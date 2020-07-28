@@ -48,7 +48,10 @@ router.put('/', (req, res) => {
 
   model.usuario.update(usuario, {where: {id: usuario.id}})
     .then(() => {
-      return model.usuario.findById(usuario.id, { include: [ {model: model.navegador}, {model: model.perfil} ] });
+      return model.usuario.findOne({
+        where: { id },
+        include: [ {model: model.navegador}, {model: model.perfil} ]
+      });
     }).then(usuario => {
       res.send(usuario);
     }).catch(err => {

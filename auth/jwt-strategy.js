@@ -9,8 +9,10 @@ var strategyOptions = {
 
 var strategy = new JwtStrategy(strategyOptions, (payload, done) => {
   
-  model.usuario.findById(payload.id)
-    .then(usuario => {
+  model.usuario
+    .findOne({
+      where: { id: payload.id }
+    }).then(usuario => {
       if (usuario) done(null, usuario);
       else throw 'User not found';
     }).catch(err => {
